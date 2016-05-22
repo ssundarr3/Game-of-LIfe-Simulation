@@ -1,10 +1,12 @@
 # importing modules
 from tkinter import *
 import functools    
+from sys import argv
 
-ROWS = 25
-COLS = 25	
-rowTimesCol = ROWS*COLS
+script, r, c = argv
+
+ROWS = int(r)
+COLS = int(c)
 
 # buttons is an array of buttons...
 buttons = []
