@@ -18,7 +18,7 @@ buttons = []
 CONTINUE = True
 
 ### <TO DO> ###
-# Add Clear, Pause and Next button
+# Add Back button (Previous configuration button)
 # Efficiency... :c
 # Travelled squares diff color?
 
