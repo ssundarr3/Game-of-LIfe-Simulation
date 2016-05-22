@@ -3,7 +3,11 @@ from tkinter import *
 import functools    
 from sys import argv
 
-script, r, c = argv
+try:
+    script, r, c = argv
+except:
+    r = 11
+    c = 38
 
 ROWS = int(r)
 COLS = int(c)
@@ -18,6 +22,8 @@ CONTINUE = True
 # Efficiency... :c
 # Travelled squares diff color?
 
+# gun = [[5,1],[5,2],[6,1],[6,2]]
+
 def main():   
     buildButtons()
 
@@ -28,6 +34,10 @@ def buildButtons():
             button = Button()
             button.grid(column=y, row=x)
             button['bg'] = "#A1A1A1"
+            t = [x,y]
+            # if(t in gun):
+            #     button.alive = True
+            # else:
             button.alive = False
             button.yellow = False
             command = functools.partial( \
@@ -35,18 +45,36 @@ def buildButtons():
             button['command'] = command
             row.append(button)
         buttons.append(row)
-
+    # update()
     start = Button()
     start['text'] = 'Start'
     start['bg'] = '#FF0000'
-    start.grid(column=int(COLS/2)-3, row=ROWS, columnspan=3)
+    start.grid(column=int(COLS/2)-6, row=ROWS, columnspan=3)
     start['command'] = functools.partial(onStart)
-    stop = Button()
-    stop['text'] = 'Stop'
-    stop['bg'] = '#FF0000'
-    # stop['command'] = onStop
-    stop.grid(column=int(COLS/2), row=ROWS, columnspan=3) 
+    
+    pause = Button()
+    pause['text'] = 'Pause'
+    pause['bg'] = '#FF0000'
+    pause['command'] = functools.partial(onPause)
+    pause.grid(column=int(COLS/2)-3, row=ROWS, columnspan=3) 
 
+    clear = Button()
+    clear['text'] = 'Clear'
+    clear['bg'] = '#FF0000'
+    clear['command'] = functools.partial(onClear)
+    clear.grid(column=int(COLS/2), row=ROWS, columnspan=3)
+
+    next = Button()
+    next['text'] = 'Next'
+    next['bg'] = '#FF0000'
+    next['command'] = functools.partial(onNext)
+    next.grid(column=int(COLS/2)+3, row=ROWS, columnspan=3)
+
+    # back = Button()
+    # back['text'] = 'Back'
+    # back['bg'] = '#FF0000'
+    # back['command'] = functools.partial(onBack)
+    # back.grid(column = int(COLS/2)+6, row=ROWS, columnspan=3)
 
 def onButtonClick(x, y): 
     button = buttons[x][y]
@@ -57,19 +85,25 @@ def onButtonClick(x, y):
 
 def onStart():
     print ("Starting now")
+    global CONTINUE
+    CONTINUE = True
     while(CONTINUE):
-        for x in range(ROWS):
-            for y in range(COLS):
-                neigh = countAround(x, y)
-                st = "Around "+str(x)+" "+str(y)+" : "+str(neigh) 
-                print(st)
-                if (buttons[x][y].alive and (neigh ==2 or neigh==3)):
-                    buttons[x][y].yellow = True
-                elif(not buttons[x][y].alive and neigh ==3):
-                    buttons[x][y].yellow = True
-                else:
-                    buttons[x][y].yellow = False
+        doNextStep()
         update()
+
+def doNextStep():
+    for x in range(ROWS):
+        for y in range(COLS):
+            neigh = countAround(x, y)
+            st = "Around "+str(x)+" "+str(y)+" : "+str(neigh) 
+            print(st)
+            if (buttons[x][y].alive and (neigh ==2 or neigh==3)):
+                buttons[x][y].yellow = True
+            elif(not buttons[x][y].alive and neigh ==3):
+                buttons[x][y].yellow = True
+            else:
+                buttons[x][y].yellow = False
+
 
 def update():
     for x in range(ROWS):
@@ -84,8 +118,31 @@ def update():
     root.update()
 
 
-# def onStop():
+def onPause():
+    global CONTINUE
+    CONTINUE = False
 
+
+def onNext():
+    global CONTINUE 
+    CONTINUE = False
+    doNextStep()
+    update()
+
+
+def onClear():
+    global CONTINUE
+    CONTINUE = False
+    for x in range(ROWS):
+        for y in range(COLS):
+            buttons[x][y].alive = False
+            buttons[x][y].yellow = False
+    update()
+
+# def onBack():
+#     global CONTINUE
+#     CONTINUE = False
+#     for 
 
 def countAround(x,y):
     count = 0
