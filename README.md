@@ -2,7 +2,9 @@
 A Game of Life simulation based on Conway's Game of LIfe, written in python using Tkinter
 
 # How to run
-> python3 gol.py No.Rows No.Cols
+Run using terminal:
+
+> python3 gol.py <Number of Rows> <Number of Columns>
 
 or
 
