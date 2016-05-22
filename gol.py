@@ -94,9 +94,9 @@ def countAround(x,y):
             if i ==0 and j ==0:
                 pass
             elif(check_x >= 0 and \
-                check_x < COLS and \
+                check_x < ROWS and \
                 check_y >= 0 and \
-                check_y < ROWS and \
+                check_y < COLS and \
                 buttons[check_x][check_y].alive):
                 count += 1
     return(count)   
