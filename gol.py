@@ -58,7 +58,7 @@ def buildButtons():
         onButtonClick(2,0)
         onButtonClick(2,1)
         onButtonClick(2,2)
-    print("Try clicking Start!\n")
+        print("Try clicking Start!\n")
     start = Button()
     start['text'] = 'Start'
     start['bg'] = '#FF0000'
