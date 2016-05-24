@@ -21,7 +21,8 @@ CONTINUE = True
 # Add Back button (Previous configuration button)
 # Efficiency... :c
 # Travelled squares diff color?
-
+# Add states, exit, menubar icon, file, help, ......
+# Starting out position, get cool coordinates.....
 # gun = [[5,1],[5,2],[6,1],[6,2]]
 
 def main():   
