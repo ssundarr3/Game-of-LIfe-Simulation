@@ -31,7 +31,7 @@ def main():
     print("Any live cell with two or three live neighbours lives on to the next generation\n")
     print("Any live cell with more than three live neighbours dies, as if by over-population\n")
     print("Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction\n")
-    print("(Cells that are alive are represented by the yellow tiles\n)")
+    print("(Cells that are alive are represented by the yellow tiles)\n")
     buildButtons()
 
 def buildButtons():
