@@ -6,8 +6,8 @@ from sys import argv
 try:
     script, r, c = argv
 except:
-    r = 11
-    c = 38
+    r = 20
+    c = 20
 
 ROWS = int(r)
 COLS = int(c)
@@ -25,6 +25,13 @@ CONTINUE = True
 # gun = [[5,1],[5,2],[6,1],[6,2]]
 
 def main():   
+    print("Hello there!\nThis is a Game of Life Simulation")
+    print("The rules are as follows:\n")
+    print("Any live cell with fewer than two live neighbours dies, as if caused by under-population\n")
+    print("Any live cell with two or three live neighbours lives on to the next generation\n")
+    print("Any live cell with more than three live neighbours dies, as if by over-population\n")
+    print("Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction\n")
+    print("(Cells that are alive are represented by the yellow tiles\n)")
     buildButtons()
 
 def buildButtons():
@@ -45,13 +52,19 @@ def buildButtons():
             button['command'] = command
             row.append(button)
         buttons.append(row)
-    # update()
+    if(ROWS>3 and COLS>3):
+        onButtonClick(0,1)
+        onButtonClick(1,2)
+        onButtonClick(2,0)
+        onButtonClick(2,1)
+        onButtonClick(2,2)
+    print("Try clicking Start!\n")
     start = Button()
     start['text'] = 'Start'
     start['bg'] = '#FF0000'
     start.grid(column=int(COLS/2)-6, row=ROWS, columnspan=3)
     start['command'] = functools.partial(onStart)
-    
+
     pause = Button()
     pause['text'] = 'Pause'
     pause['bg'] = '#FF0000'
@@ -77,14 +90,19 @@ def buildButtons():
     # back.grid(column = int(COLS/2)+6, row=ROWS, columnspan=3)
 
 def onButtonClick(x, y): 
+    global CONTINUE
+    CONTINUE = False
     button = buttons[x][y]
-    button['bg'] = '#FFFF00'
+    if(button['bg'] == '#A1A1A1'):
+        button['bg'] = '#FFFF00'
+    else:
+        button['bg'] = '#A1A1A1'
     print (str(x) + " " + str(y))
     button.alive = True
     button.yellow = True
 
 def onStart():
-    print ("Starting now")
+    # print ("Starting now")
     global CONTINUE
     CONTINUE = True
     while(CONTINUE):
@@ -95,8 +113,8 @@ def doNextStep():
     for x in range(ROWS):
         for y in range(COLS):
             neigh = countAround(x, y)
-            st = "Around "+str(x)+" "+str(y)+" : "+str(neigh) 
-            print(st)
+            #st = "Around "+str(x)+" "+str(y)+" : "+str(neigh) 
+            #print(st)
             if (buttons[x][y].alive and (neigh ==2 or neigh==3)):
                 buttons[x][y].yellow = True
             elif(not buttons[x][y].alive and neigh ==3):
@@ -166,5 +184,4 @@ if __name__=="__main__":
     root.title('GoL simulation')
     main()
     root.mainloop()
-
 
