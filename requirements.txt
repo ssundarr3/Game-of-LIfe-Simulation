@@ -1,2 +1,4 @@
 python3
 tkinter
+
+how to install tkinter: http://www.tkdocs.com/tutorial/install.html
